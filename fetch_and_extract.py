@@ -30,14 +30,14 @@ def parse_date_token(token: str):
     token = token.strip()
     m = re.match(r"^(\d+)d$", token)
     if m:
-        return datetime.utcnow().date() - timedelta(days=int(m.group(1)))
+        return datetime.now().date() - timedelta(days=int(m.group(1)))
     for pat, fmt in DATE_PATTERNS:
         m = pat.search(token)
         if m:
             txt = m.group(1)
             try:
                 if fmt == "%b %d":
-                    dt = datetime.strptime(txt + f", {datetime.utcnow().year}", "%b %d, %Y")
+                    dt = datetime.strptime(txt + f", {datetime.now().year}", "%b %d, %Y")
                 else:
                     dt = datetime.strptime(txt, fmt)
                 return dt.date()
