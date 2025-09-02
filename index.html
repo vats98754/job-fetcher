@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tech Internships US/Canada</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; cursor: pointer; }
+        input { margin-bottom: 10px; padding: 5px; width: 100%; }
+        button { padding: 5px 10px; background: #007bff; color: white; border: none; cursor: pointer; }
+        button:hover { background: #0056b3; }
+        #loading { text-align: center; padding: 20px; }
+    </style>
+</head>
+<body>
+    <h1>Tech Internships US/Canada</h1>
+    <p>Filter: <input type="text" id="filter" onkeyup="filterTable()"></p>
+    <div id="loading">Loading data...</div>
+    <table id="internships" style="display: none;">
+        <thead id="table-head">
+        </thead>
+        <tbody id="table-body">
+        </tbody>
+    </table>
+    <script>
+        let data = [];
+        let headers = [];
+
+        async function loadData() {
+            try {
+                const response = await fetch('internships_us_canada.csv');
+                const csvText = await response.text();
+                parseCSV(csvText);
+                buildTable();
+            } catch (error) {
+                document.getElementById('loading').innerHTML = 'Error loading data. Please try again later.';
+                console.error('Error loading CSV:', error);
+            }
+        }
+
+        function parseCSV(csvText) {
+            const lines = csvText.trim().split('\n');
+            headers = lines[0].split(',').map(h => h.trim());
+            data = lines.slice(1).map(line => {
+                const values = line.split(',').map(v => v.trim());
+                const obj = {};
+                headers.forEach((h, i) => obj[h] = values[i] || '');
+                return obj;
+            });
+        }
+
+        function buildTable() {
+            const thead = document.getElementById('table-head');
+            const tbody = document.getElementById('table-body');
+
+            // Build header
+            const headerRow = document.createElement('tr');
+            headers.forEach((h, i) => {
+                const th = document.createElement('th');
+                th.textContent = h.charAt(0).toUpperCase() + h.slice(1);
+                if (h !== 'application') {
+                    th.onclick = () => sortTable(i);
+                    th.style.cursor = 'pointer';
+                }
+                headerRow.appendChild(th);
+            });
+            thead.appendChild(headerRow);
+
+            // Build body
+            data.forEach(row => {
+                const tr = document.createElement('tr');
+                headers.forEach(h => {
+                    const td = document.createElement('td');
+                    if (h === 'application' && row[h]) {
+                        const button = document.createElement('button');
+                        button.textContent = 'Apply';
+                        button.onclick = () => window.open(row[h]);
+                        td.appendChild(button);
+                    } else {
+                        td.textContent = row[h];
+                    }
+                    tr.appendChild(td);
+                });
+                tbody.appendChild(tr);
+            });
+
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('internships').style.display = 'table';
+        }
+
+        function filterTable() {
+            const input = document.getElementById('filter');
+            const filter = input.value.toUpperCase();
+            const table = document.getElementById('internships');
+            const tr = table.getElementsByTagName('tr');
+            for (let i = 1; i < tr.length; i++) {
+                const td = tr[i].getElementsByTagName('td');
+                let txtValue = '';
+                for (let j = 0; j < td.length; j++) {
+                    txtValue += td[j].textContent || td[j].innerText;
+                }
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = '';
+                } else {
+                    tr[i].style.display = 'none';
+                }
+            }
+        }
+
+        function sortTable(n) {
+            const table = document.getElementById('internships');
+            let rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+            switching = true;
+            dir = 'asc';
+            while (switching) {
+                switching = false;
+                rows = table.rows;
+                for (i = 1; i < (rows.length - 1); i++) {
+                    shouldSwitch = false;
+                    x = rows[i].getElementsByTagName('TD')[n];
+                    y = rows[i + 1].getElementsByTagName('TD')[n];
+                    if (dir == 'asc') {
+                        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                            shouldSwitch = true;
+                            break;
+                        }
+                    } else if (dir == 'desc') {
+                        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                            shouldSwitch = true;
+                            break;
+                        }
+                    }
+                }
+                if (shouldSwitch) {
+                    rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                    switching = true;
+                    switchcount++;
+                } else {
+                    if (switchcount == 0 && dir == 'asc') {
+                        dir = 'desc';
+                        switching = true;
+                    }
+                }
+            }
+        }
+
+        // Load data when page loads
+        window.onload = loadData;
+    </script>
+</body>
+</html>
