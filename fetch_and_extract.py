@@ -77,64 +77,219 @@ def extract_positions_from_text(text: str, repo: str):
     lines = text.splitlines()
     positions = []
     
-    # First, try to find table headers
-    headers = []
-    for line in lines:
-        if "|" in line and not line.strip().startswith("#"):
-            parts = [p.strip() for p in re.split(r"\|", line) if p.strip()]
-            if len(parts) >= 3 and not any(char.isdigit() for char in line):  # Likely headers
-                headers = parts
-                break
+    # Try to extract from HTML tables first
+    html_positions = extract_from_html_tables(text, repo)
+    if html_positions:
+        positions.extend(html_positions)
     
-    if not headers:
-        # Fallback to basic extraction
-        headers = ["Company", "Role", "Location", "Application", "Status", "Date", "Source"]
+    # Also try markdown table extraction
+    markdown_positions = extract_from_markdown_tables(text, repo)
+    if markdown_positions:
+        positions.extend(markdown_positions)
     
-    for line in lines:
-        if line.strip().startswith("#") or line.strip().startswith("---") or "|" not in line:
+    # Remove duplicates based on application link
+    seen_links = set()
+    unique_positions = []
+    for pos in positions:
+        link = pos.get('application', '')
+        if link and link not in seen_links:
+            seen_links.add(link)
+            unique_positions.append(pos)
+        elif not link:  # Keep positions without links
+            unique_positions.append(pos)
+    
+    return unique_positions
+
+def extract_from_html_tables(text: str, repo: str):
+    positions = []
+    
+    # Use regex to find HTML table rows
+    import re
+    
+    # Pattern to match table rows with company, role, location, application, age
+    row_pattern = r'<tr>.*?<td[^>]*>(.*?)</td>.*?<td[^>]*>(.*?)</td>.*?<td[^>]*>(.*?)</td>.*?<td[^>]*>.*?(?:href="([^"]*)"|src="[^"]*").*?</td>.*?<td[^>]*>(.*?)</td>.*?</tr>'
+    
+    matches = re.findall(row_pattern, text, re.DOTALL | re.IGNORECASE)
+    
+    for match in matches:
+        company_raw, role_raw, location_raw, application_link, age_raw = match
+        
+        # Clean up the extracted data
+        company = clean_html_text(company_raw)
+        role = clean_html_text(role_raw)
+        location = clean_html_text(location_raw)
+        
+        # Extract application link if not already captured
+        if not application_link:
+            link_match = re.search(r'href="([^"]*)"', company_raw + role_raw + location_raw)
+            if link_match:
+                application_link = link_match.group(1)
+        
+        # Skip if this looks like a header or empty row
+        if not company or company.lower().strip() in ['company', '↳'] or len(company.strip()) < 2:
             continue
-        parts = [p.strip() for p in re.split(r"\|", line) if p.strip()]
-        if len(parts) >= 3:
-            position = {"source_repo": repo}
             
-            # Map parts to headers
-            for i, part in enumerate(parts):
-                if i < len(headers):
-                    header = headers[i].lower().replace(" ", "_")
-                    position[header] = part
-            
-            # Ensure we have basic fields
-            if "company" not in position and len(parts) > 0:
-                position["company"] = parts[0]
-            if "role" not in position and len(parts) > 1:
-                position["role"] = parts[1]
-            if "location" not in position and len(parts) > 2:
-                position["location"] = parts[2]
-            
-            # Extract application link
-            app_link = ""
-            for p in parts:
-                if re.search(r'\[([^\]]+)\]\(([^)]+)\)', p):
-                    m = re.search(r'\[([^\]]+)\]\(([^)]+)\)', p)
-                    if m:
-                        app_link = m.group(2)
-                        break
-                elif "http" in p:
-                    app_link = p
-                    break
-            position["application"] = app_link
-            
-            # Extract status
-            status = ""
-            for p in parts:
-                if "open" in p.lower() or "✅" in p or "available" in p.lower():
-                    status = p
-                    break
-            position["status"] = status
-            
-            positions.append(position)
+        position = {
+            'company': company,
+            'role': role,
+            'location': location,
+            'application': application_link,
+            'status': 'open',  # Assume open if in active table
+            'date_token': age_raw.strip() if age_raw else '',
+            'source_repo': repo
+        }
+        
+        positions.append(position)
     
     return positions
+
+def extract_from_markdown_tables(text: str, repo: str):
+    lines = text.splitlines()
+    positions = []
+    
+    # Find table headers
+    header_line = None
+    for i, line in enumerate(lines):
+        if '|' in line and ('company' in line.lower() or 'role' in line.lower()):
+            header_line = i
+            break
+    
+    if not header_line:
+        return positions
+    
+    # Parse headers
+    headers = [h.strip().lower().replace(' ', '_') for h in lines[header_line].split('|') if h.strip()]
+    
+    # Parse data rows
+    for line in lines[header_line + 2:]:  # Skip header separator
+        if '|' not in line or line.strip().startswith('|---'):
+            continue
+            
+        parts = [p.strip() for p in line.split('|') if p.strip()]
+        if len(parts) < len(headers):
+            continue
+            
+        position = {'source_repo': repo}
+        
+        for i, part in enumerate(parts):
+            if i < len(headers):
+                header = headers[i]
+                position[header] = part
+        
+        # Extract application link from HTML tags
+        if 'application' in position:
+            link_match = re.search(r'href="([^"]*)"', position['application'])
+            if link_match:
+                position['application'] = link_match.group(1)
+        
+        # Clean up company name
+        if 'company' in position:
+            position['company'] = clean_html_text(position['company'])
+        
+        positions.append(position)
+    
+    return positions
+
+def clean_html_text(text: str) -> str:
+    """Clean HTML tags and extract text content"""
+    import re
+    
+    # Remove HTML tags
+    clean = re.sub(r'<[^>]+>', '', text)
+    
+    # Remove extra whitespace
+    clean = ' '.join(clean.split())
+    
+    # Remove common artifacts
+    clean = clean.replace('↳', '').strip()
+    
+    return clean
+
+def standardize_fields_with_ai(positions):
+    """Use Hugging Face model to standardize field names"""
+    
+    # Define our target schema
+    target_fields = {
+        'company': ['company', 'organization', 'employer', 'firm'],
+        'role': ['role', 'position', 'job', 'title', 'internship'],
+        'location': ['location', 'place', 'city', 'state', 'country'],
+        'application': ['application', 'link', 'apply', 'url', 'href'],
+        'status': ['status', 'state', 'availability', 'open', 'closed'],
+        'date_token': ['date', 'posted', 'created', 'age', 'time']
+    }
+    
+    standardized_positions = []
+    
+    for pos in positions:
+        standardized = {'source_repo': pos.get('source_repo', '')}
+        
+        # Try to map each field using AI if needed
+        for target_field, possible_names in target_fields.items():
+            # First try exact matches
+            for key in pos.keys():
+                if key.lower() in possible_names or any(name in key.lower() for name in possible_names):
+                    standardized[target_field] = pos[key]
+                    break
+            
+            # If no match found, try AI-powered mapping for complex cases
+            if target_field not in standardized:
+                best_match = find_best_field_match(pos.keys(), target_field, possible_names)
+                if best_match:
+                    standardized[target_field] = pos[best_match]
+        
+        # Ensure we have the basic required fields
+        if 'company' not in standardized:
+            standardized['company'] = 'Unknown Company'
+        if 'role' not in standardized:
+            standardized['role'] = 'Unknown Role'
+        if 'location' not in standardized:
+            standardized['location'] = 'Unknown Location'
+        if 'application' not in standardized:
+            standardized['application'] = ''
+        if 'status' not in standardized:
+            standardized['status'] = 'open'  # Default to open
+        if 'date_token' not in standardized:
+            standardized['date_token'] = ''
+            
+        standardized_positions.append(standardized)
+    
+    return standardized_positions
+
+def find_best_field_match(available_fields, target_field, possible_names):
+    """Find the best matching field name using simple heuristics"""
+    
+    # Convert to lowercase for comparison
+    available_lower = [f.lower() for f in available_fields]
+    
+    # Look for exact matches first
+    for name in possible_names:
+        if name in available_lower:
+            idx = available_lower.index(name)
+            return available_fields[idx]
+    
+    # Look for partial matches
+    for i, field in enumerate(available_lower):
+        for name in possible_names:
+            if name in field or field in name:
+                return available_fields[i]
+    
+    # Look for abbreviations or similar patterns
+    field_abbrevs = {
+        'company': ['co', 'corp', 'inc', 'ltd', 'llc'],
+        'role': ['pos', 'job', 'title'],
+        'location': ['loc', 'place', 'addr'],
+        'application': ['app', 'link', 'url'],
+        'status': ['stat', 'state'],
+        'date_token': ['date', 'time', 'posted']
+    }
+    
+    if target_field in field_abbrevs:
+        for abbrev in field_abbrevs[target_field]:
+            if abbrev in available_lower:
+                idx = available_lower.index(abbrev)
+                return available_fields[idx]
+    
+    return None
 
 def main():
     temp = Path(tempfile.mkdtemp(prefix="internscan_"))
@@ -157,18 +312,26 @@ def main():
         if not content: continue
 
         for pos in extract_positions_from_text(content, repo):
-            if looks_like_us_or_canada(pos["location"]) and ("open" in pos["status"].lower() or "✅" in pos["status"]):
-                all_positions.append(pos)
+            all_positions.append(pos)
+
+    # Standardize field names using AI-powered mapping
+    all_positions = standardize_fields_with_ai(all_positions)
+
+    # Filter for US/Canada locations and open positions
+    filtered_positions = []
+    for pos in all_positions:
+        if looks_like_us_or_canada(pos.get("location", "")) and ("open" in pos.get("status", "").lower() or "✅" in pos.get("status", "")):
+            filtered_positions.append(pos)
 
     def parse_date(pos):
         dt = parse_date_token(pos.get("date_token",""))
         return dt or datetime(1970,1,1).date()
 
-    all_positions_sorted = sorted(all_positions, key=parse_date, reverse=True)
+    all_positions_sorted = sorted(filtered_positions, key=parse_date, reverse=True)
 
     # Collect all unique column names
     all_columns = set()
-    for pos in all_positions:
+    for pos in filtered_positions:
         all_columns.update(pos.keys())
     
     # Ensure basic columns are included
