@@ -4,7 +4,7 @@ import re
 import shutil
 import subprocess
 import tempfile
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 # Repos to pull internship data from (US/Canada focus)
@@ -30,14 +30,14 @@ def parse_date_token(token: str):
     token = token.strip()
     m = re.match(r"^(\d+)d$", token)
     if m:
-        return datetime.utcnow().date() - timedelta(days=int(m.group(1)))
+        return datetime.now(timezone.utc).date() - timedelta(days=int(m.group(1)))
     for pat, fmt in DATE_PATTERNS:
         m = pat.search(token)
         if m:
             txt = m.group(1)
             try:
                 if fmt == "%b %d":
-                    dt = datetime.strptime(txt + f", {datetime.utcnow().year}", "%b %d, %Y")
+                    dt = datetime.strptime(txt + f", {datetime.now().year}", "%b %d, %Y")
                 else:
                     dt = datetime.strptime(txt, fmt)
                 return dt.date()
@@ -347,121 +347,15 @@ def main():
         for p in all_positions_sorted:
             writer.writerow(p)
 
-    # Generate HTML page
+    # Copy the dynamic HTML page (loads CSV data via AJAX)
     html_file = Path("index.html")
-    with open(html_file, "w", encoding="utf-8") as f:
-        f.write("""<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tech Internships US/Canada</title>
-    <style>
-        body { font-family: Arial, sans-serif; margin: 20px; }
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
-        th { background-color: #f2f2f2; cursor: pointer; }
-        input { margin-bottom: 10px; padding: 5px; width: 100%; }
-    </style>
-</head>
-<body>
-    <h1>Tech Internships US/Canada</h1>
-    <p>Filter: <input type="text" id="filter" onkeyup="filterTable()"></p>
-    <table id="internships">
-        <thead>
-            <tr>
-                <th onclick="sortTable(0)">Company</th>
-                <th onclick="sortTable(1)">Role</th>
-                <th onclick="sortTable(2)">Location</th>
-                <th>Application</th>
-                <th onclick="sortTable(4)">Status</th>
-                <th onclick="sortTable(5)">Date</th>
-                <th onclick="sortTable(6)">Source</th>
-            </tr>
-        </thead>
-        <tbody>
-""")
-        with open(OUT_CSV, "r", encoding="utf-8") as csvf:
-            reader = csv.DictReader(csvf)
-            for row in reader:
-                app_link = row["application"]
-                if app_link:
-                    app_html = f'<a href="{app_link}" target="_blank">Apply</a>'
-                else:
-                    app_html = ""
-                f.write(f"""
-            <tr>
-                <td>{row["company"]}</td>
-                <td>{row["role"]}</td>
-                <td>{row["location"]}</td>
-                <td>{app_html}</td>
-                <td>{row["status"]}</td>
-                <td>{row["date_token"]}</td>
-                <td>{row["source_repo"]}</td>
-            </tr>
-""")
-        f.write("""
-        </tbody>
-    </table>
-    <script>
-        function filterTable() {
-            const input = document.getElementById('filter');
-            const filter = input.value.toUpperCase();
-            const table = document.getElementById('internships');
-            const tr = table.getElementsByTagName('tr');
-            for (let i = 1; i < tr.length; i++) {
-                const td = tr[i].getElementsByTagName('td');
-                let txtValue = '';
-                for (let j = 0; j < td.length; j++) {
-                    txtValue += td[j].textContent || td[j].innerText;
-                }
-                if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                    tr[i].style.display = '';
-                } else {
-                    tr[i].style.display = 'none';
-                }
-            }
-        }
-        function sortTable(n) {
-            const table = document.getElementById('internships');
-            let rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
-            switching = true;
-            dir = 'asc';
-            while (switching) {
-                switching = false;
-                rows = table.rows;
-                for (i = 1; i < (rows.length - 1); i++) {
-                    shouldSwitch = false;
-                    x = rows[i].getElementsByTagName('TD')[n];
-                    y = rows[i + 1].getElementsByTagName('TD')[n];
-                    if (dir == 'asc') {
-                        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
-                            shouldSwitch = true;
-                            break;
-                        }
-                    } else if (dir == 'desc') {
-                        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
-                            shouldSwitch = true;
-                            break;
-                        }
-                    }
-                }
-                if (shouldSwitch) {
-                    rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-                    switching = true;
-                    switchcount++;
-                } else {
-                    if (switchcount == 0 && dir == 'asc') {
-                        dir = 'desc';
-                        switching = true;
-                    }
-                }
-            }
-        }
-    </script>
-</body>
-</html>
-""")
+    dynamic_html_file = Path("index_dynamic.html")
+    
+    if dynamic_html_file.exists():
+        shutil.copy2(dynamic_html_file, html_file)
+        print(f"Copied dynamic HTML to index.html")
+    else:
+        print("Warning: index_dynamic.html not found, keeping existing index.html")
 
     shutil.rmtree(temp)
     print(f"Wrote {len(all_positions_sorted)} positions to {OUT_CSV}")
