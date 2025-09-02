@@ -76,30 +76,64 @@ def looks_like_us_or_canada(loc: str) -> bool:
 def extract_positions_from_text(text: str, repo: str):
     lines = text.splitlines()
     positions = []
+    
+    # First, try to find table headers
+    headers = []
     for line in lines:
-        if line.strip().startswith("#") or line.strip().startswith("---"):
+        if "|" in line and not line.strip().startswith("#"):
+            parts = [p.strip() for p in re.split(r"\|", line) if p.strip()]
+            if len(parts) >= 3 and not any(char.isdigit() for char in line):  # Likely headers
+                headers = parts
+                break
+    
+    if not headers:
+        # Fallback to basic extraction
+        headers = ["Company", "Role", "Location", "Application", "Status", "Date", "Source"]
+    
+    for line in lines:
+        if line.strip().startswith("#") or line.strip().startswith("---") or "|" not in line:
             continue
         parts = [p.strip() for p in re.split(r"\|", line) if p.strip()]
         if len(parts) >= 3:
-            company, role = parts[0], parts[1]
-            location, date_token, app_link, status = "", "", "", ""
-            for p in parts[2:]:
+            position = {"source_repo": repo}
+            
+            # Map parts to headers
+            for i, part in enumerate(parts):
+                if i < len(headers):
+                    header = headers[i].lower().replace(" ", "_")
+                    position[header] = part
+            
+            # Ensure we have basic fields
+            if "company" not in position and len(parts) > 0:
+                position["company"] = parts[0]
+            if "role" not in position and len(parts) > 1:
+                position["role"] = parts[1]
+            if "location" not in position and len(parts) > 2:
+                position["location"] = parts[2]
+            
+            # Extract application link
+            app_link = ""
+            for p in parts:
                 if re.search(r'\[([^\]]+)\]\(([^)]+)\)', p):
                     m = re.search(r'\[([^\]]+)\]\(([^)]+)\)', p)
                     if m:
                         app_link = m.group(2)
+                        break
                 elif "http" in p:
                     app_link = p
-                if "open" in p.lower() or "✅" in p: status = p
-                if re.search(r"\d{1,2}/\d{1,2}/\d{4}", p) or re.search(r"[A-Za-z]{3} \d{1,2}", p) or re.search(r"\d+d", p):
-                    date_token = p
-                if looks_like_us_or_canada(p): location = p
-            if not location and len(parts) >= 3: location = parts[2]
-            positions.append({
-                "company": company, "role": role, "location": location,
-                "application": app_link, "status": status,
-                "date_token": date_token, "source_repo": repo,
-            })
+                    break
+            position["application"] = app_link
+            
+            # Extract status
+            status = ""
+            for p in parts:
+                if "open" in p.lower() or "✅" in p or "available" in p.lower():
+                    status = p
+                    break
+            position["status"] = status
+            
+            positions.append(position)
+    
     return positions
 
 def main():
@@ -132,8 +166,20 @@ def main():
 
     all_positions_sorted = sorted(all_positions, key=parse_date, reverse=True)
 
+    # Collect all unique column names
+    all_columns = set()
+    for pos in all_positions:
+        all_columns.update(pos.keys())
+    
+    # Ensure basic columns are included
+    basic_columns = ["company", "role", "location", "application", "status", "date_token", "source_repo"]
+    for col in basic_columns:
+        all_columns.add(col)
+    
+    fieldnames = sorted(list(all_columns))
+
     with open(OUT_CSV, "w", newline="", encoding="utf-8") as f:
-        writer = csv.DictWriter(f, fieldnames=["company","role","location","application","status","date_token","source_repo"])
+        writer = csv.DictWriter(f, fieldnames=fieldnames)
         writer.writeheader()
         for p in all_positions_sorted:
             writer.writerow(p)

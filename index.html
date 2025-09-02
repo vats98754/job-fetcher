@@ -4,39 +4,360 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tech Internships US/Canada</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: Arial, sans-serif; margin: 20px; }
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
-        th { background-color: #f2f2f2; cursor: pointer; }
-        input { margin-bottom: 10px; padding: 5px; width: 100%; }
-        button { padding: 5px 10px; background: #007bff; color: white; border: none; cursor: pointer; }
-        button:hover { background: #0056b3; }
-        #loading { text-align: center; padding: 20px; }
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #64748b;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --background: #ffffff;
+            --surface: #f8fafc;
+            --text: #1e293b;
+            --text-secondary: #64748b;
+            --border: #e2e8f0;
+            --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--background);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding: 2rem 0;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            border-radius: 12px;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: var(--surface);
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            text-align: center;
+            border: 1px solid var(--border);
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .controls {
+            background: var(--surface);
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+            border: 1px solid var(--border);
+        }
+
+        .filter-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .filter-section h3 {
+            margin-bottom: 0.5rem;
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        .global-filter {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid var(--border);
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: border-color 0.2s;
+        }
+
+        .global-filter:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .column-filters {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .column-filter {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .column-filter label {
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        .column-filter input {
+            padding: 0.5rem;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            font-size: 0.875rem;
+        }
+
+        .table-container {
+            background: var(--surface);
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.875rem;
+        }
+
+        thead {
+            position: sticky;
+            top: 0;
+            background: var(--surface);
+            z-index: 10;
+        }
+
+        th {
+            background: var(--surface);
+            padding: 1rem 0.75rem;
+            text-align: left;
+            font-weight: 600;
+            color: var(--text);
+            border-bottom: 2px solid var(--border);
+            cursor: pointer;
+            transition: background-color 0.2s;
+            position: relative;
+        }
+
+        th:hover {
+            background: var(--background);
+        }
+
+        th.sort-asc::after {
+            content: ' ↑';
+            color: var(--primary);
+        }
+
+        th.sort-desc::after {
+            content: ' ↓';
+            color: var(--primary);
+        }
+
+        td {
+            padding: 0.75rem;
+            border-bottom: 1px solid var(--border);
+            vertical-align: middle;
+        }
+
+        tbody tr {
+            transition: background-color 0.2s;
+        }
+
+        tbody tr:hover {
+            background: var(--background);
+        }
+
+        .apply-btn {
+            background: var(--success);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.2s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .apply-btn:hover {
+            background: #059669;
+        }
+
+        .status-badge {
+            padding: 0.25rem 0.5rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+
+        .status-open {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .status-closed {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 3rem;
+            color: var(--text-secondary);
+        }
+
+        .loading::after {
+            content: '';
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--border);
+            border-radius: 50%;
+            border-top-color: var(--primary);
+            animation: spin 1s ease-in-out infinite;
+            margin-left: 0.5rem;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-secondary);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .column-filters {
+                grid-template-columns: 1fr;
+            }
+
+            th, td {
+                padding: 0.5rem;
+            }
+        }
     </style>
 </head>
 <body>
-    <h1>Tech Internships US/Canada</h1>
-    <p>Filter: <input type="text" id="filter" onkeyup="filterTable()"></p>
-    <div id="loading">Loading data...</div>
-    <table id="internships" style="display: none;">
-        <thead id="table-head">
-        </thead>
-        <tbody id="table-body">
-        </tbody>
-    </table>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 Tech Internships</h1>
+            <p>Find your dream internship in US & Canada</p>
+        </div>
+
+        <div class="stats" id="stats">
+            <!-- Stats will be populated by JavaScript -->
+        </div>
+
+        <div class="controls">
+            <div class="filter-section">
+                <h3>🔍 Global Search</h3>
+                <input type="text" id="global-filter" class="global-filter" placeholder="Search across all columns...">
+            </div>
+
+            <div class="filter-section">
+                <h3>🎯 Column Filters</h3>
+                <div id="column-filters" class="column-filters">
+                    <!-- Column filters will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+
+        <div class="table-container">
+            <div class="table-wrapper">
+                <div id="loading" class="loading">Loading internship data...</div>
+                <table id="internships" style="display: none;">
+                    <thead id="table-head"></thead>
+                    <tbody id="table-body"></tbody>
+                </table>
+                <div id="no-results" class="no-results" style="display: none;">
+                    No internships match your filters. Try adjusting your search criteria.
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         let data = [];
         let headers = [];
+        let sortColumn = -1;
+        let sortDirection = 'asc';
+        let columnFilters = {};
 
         async function loadData() {
             try {
                 const response = await fetch('internships_us_canada.csv');
                 const csvText = await response.text();
                 parseCSV(csvText);
+                buildFilters();
                 buildTable();
+                updateStats();
             } catch (error) {
-                document.getElementById('loading').innerHTML = 'Error loading data. Please try again later.';
+                document.getElementById('loading').innerHTML = '❌ Error loading data. Please try again later.';
                 console.error('Error loading CSV:', error);
             }
         }
@@ -52,33 +373,72 @@
             });
         }
 
-        function buildTable() {
+        function buildFilters() {
+            const filtersContainer = document.getElementById('column-filters');
+            headers.forEach(header => {
+                if (header === 'application') return;
+
+                const filterDiv = document.createElement('div');
+                filterDiv.className = 'column-filter';
+
+                const label = document.createElement('label');
+                label.textContent = header.charAt(0).toUpperCase() + header.slice(1);
+                label.htmlFor = `filter-${header}`;
+
+                const input = document.createElement('input');
+                input.type = 'text';
+                input.id = `filter-${header}`;
+                input.placeholder = `Filter ${header}...`;
+                input.onkeyup = () => {
+                    columnFilters[header] = input.value.toLowerCase();
+                    filterTable();
+                };
+
+                filterDiv.appendChild(label);
+                filterDiv.appendChild(input);
+                filtersContainer.appendChild(filterDiv);
+            });
+        }
+
+        function buildTable(filteredData = null) {
+            const displayData = filteredData || data;
             const thead = document.getElementById('table-head');
             const tbody = document.getElementById('table-body');
+
+            // Clear existing content
+            thead.innerHTML = '';
+            tbody.innerHTML = '';
 
             // Build header
             const headerRow = document.createElement('tr');
             headers.forEach((h, i) => {
                 const th = document.createElement('th');
                 th.textContent = h.charAt(0).toUpperCase() + h.slice(1);
-                if (h !== 'application') {
-                    th.onclick = () => sortTable(i);
-                    th.style.cursor = 'pointer';
+                th.onclick = () => sortTable(i);
+                if (sortColumn === i) {
+                    th.className = sortDirection === 'asc' ? 'sort-asc' : 'sort-desc';
                 }
                 headerRow.appendChild(th);
             });
             thead.appendChild(headerRow);
 
             // Build body
-            data.forEach(row => {
+            displayData.forEach(row => {
                 const tr = document.createElement('tr');
                 headers.forEach(h => {
                     const td = document.createElement('td');
                     if (h === 'application' && row[h]) {
-                        const button = document.createElement('button');
-                        button.textContent = 'Apply';
-                        button.onclick = () => window.open(row[h]);
+                        const button = document.createElement('a');
+                        button.textContent = 'Apply Now';
+                        button.className = 'apply-btn';
+                        button.href = row[h];
+                        button.target = '_blank';
                         td.appendChild(button);
+                    } else if (h === 'status') {
+                        const badge = document.createElement('span');
+                        badge.className = 'status-badge ' + (row[h].toLowerCase().includes('open') ? 'status-open' : 'status-closed');
+                        badge.textContent = row[h] || 'Unknown';
+                        td.appendChild(badge);
                     } else {
                         td.textContent = row[h];
                     }
@@ -87,65 +447,90 @@
                 tbody.appendChild(tr);
             });
 
+            // Show/hide elements
             document.getElementById('loading').style.display = 'none';
-            document.getElementById('internships').style.display = 'table';
+            document.getElementById('internships').style.display = displayData.length > 0 ? 'table' : 'none';
+            document.getElementById('no-results').style.display = displayData.length === 0 ? 'block' : 'none';
         }
 
         function filterTable() {
-            const input = document.getElementById('filter');
-            const filter = input.value.toUpperCase();
-            const table = document.getElementById('internships');
-            const tr = table.getElementsByTagName('tr');
-            for (let i = 1; i < tr.length; i++) {
-                const td = tr[i].getElementsByTagName('td');
-                let txtValue = '';
-                for (let j = 0; j < td.length; j++) {
-                    txtValue += td[j].textContent || td[j].innerText;
-                }
-                if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                    tr[i].style.display = '';
-                } else {
-                    tr[i].style.display = 'none';
-                }
+            const globalFilter = document.getElementById('global-filter').value.toLowerCase();
+            let filteredData = data;
+
+            // Apply global filter
+            if (globalFilter) {
+                filteredData = filteredData.filter(row =>
+                    headers.some(h => row[h].toLowerCase().includes(globalFilter))
+                );
             }
+
+            // Apply column filters
+            Object.keys(columnFilters).forEach(header => {
+                const filterValue = columnFilters[header];
+                if (filterValue) {
+                    filteredData = filteredData.filter(row =>
+                        row[header].toLowerCase().includes(filterValue)
+                    );
+                }
+            });
+
+            buildTable(filteredData);
+            updateStats(filteredData);
         }
 
         function sortTable(n) {
-            const table = document.getElementById('internships');
-            let rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
-            switching = true;
-            dir = 'asc';
-            while (switching) {
-                switching = false;
-                rows = table.rows;
-                for (i = 1; i < (rows.length - 1); i++) {
-                    shouldSwitch = false;
-                    x = rows[i].getElementsByTagName('TD')[n];
-                    y = rows[i + 1].getElementsByTagName('TD')[n];
-                    if (dir == 'asc') {
-                        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
-                            shouldSwitch = true;
-                            break;
-                        }
-                    } else if (dir == 'desc') {
-                        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
-                            shouldSwitch = true;
-                            break;
-                        }
-                    }
-                }
-                if (shouldSwitch) {
-                    rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-                    switching = true;
-                    switchcount++;
-                } else {
-                    if (switchcount == 0 && dir == 'asc') {
-                        dir = 'desc';
-                        switching = true;
-                    }
-                }
+            if (sortColumn === n) {
+                sortDirection = sortDirection === 'asc' ? 'desc' : 'asc';
+            } else {
+                sortColumn = n;
+                sortDirection = 'asc';
             }
+
+            data.sort((a, b) => {
+                const aVal = a[headers[n]].toLowerCase();
+                const bVal = b[headers[n]].toLowerCase();
+
+                if (sortDirection === 'asc') {
+                    return aVal.localeCompare(bVal);
+                } else {
+                    return bVal.localeCompare(aVal);
+                }
+            });
+
+            filterTable();
         }
+
+        function updateStats(filteredData = null) {
+            const statsData = filteredData || data;
+            const statsContainer = document.getElementById('stats');
+
+            const totalInternships = statsData.length;
+            const openPositions = statsData.filter(row => row.status && row.status.toLowerCase().includes('open')).length;
+            const uniqueCompanies = new Set(statsData.map(row => row.company).filter(c => c)).size;
+            const uniqueLocations = new Set(statsData.map(row => row.location).filter(l => l)).size;
+
+            statsContainer.innerHTML = `
+                <div class="stat-card">
+                    <div class="stat-number">${totalInternships}</div>
+                    <div class="stat-label">Total Positions</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">${openPositions}</div>
+                    <div class="stat-label">Open Positions</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">${uniqueCompanies}</div>
+                    <div class="stat-label">Companies</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">${uniqueLocations}</div>
+                    <div class="stat-label">Locations</div>
+                </div>
+            `;
+        }
+
+        // Event listeners
+        document.getElementById('global-filter').addEventListener('keyup', filterTable);
 
         // Load data when page loads
         window.onload = loadData;
