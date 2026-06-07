@@ -2,7 +2,6 @@ application,company,date_token,location,role,source_repo,status
 https://www.tesla.com/careers/search/job/267767?utm_source=Simplify&ref=Simplify,🔥 Tesla,0d,"Palo Alto, CAFremont, CAUnited States",Software Engineer Intern - Engineering Automation Software Engineer - Vehicle Engineering,SimplifyJobs/Summer2026-Internships,open
 https://www.tesla.com/careers/search/job/263759?utm_source=Simplify&ref=Simplify,🔥 Tesla,0d,"Palo Alto, CA",AI Performance Engineer Intern - AI Performance Engineer - Performance Optimization,SimplifyJobs/Summer2026-Internships,open
 https://www.tesla.com/careers/search/job/272462?utm_source=Simplify&ref=Simplify,🔥 Tesla,0d,"Palo Alto, CAAustin, TX",AI Hardware Design Engineer Intern - AI Hardware Design Engineer - AI Hardware,SimplifyJobs/Summer2026-Internships,open
-,NVIDIA,0d,"US, CA, Santa Clara",Software Engineering Intern - Mapping Autonomous Vehicles - Fall 2026,speedyapply/2026-SWE-College-Jobs,open
 https://nidec.wd1.myworkdayjobs.com/nidec/job/North-AmericaUSAMissouriSt-Louis---WPE-MO/Application-Engineering-Co-Op_R0016076?utm_source=Simplify&ref=Simplify,Nidec,1d,"St. Louis, MO",Application Engineering Co-op,SimplifyJobs/Summer2026-Internships,open
 https://job-boards.greenhouse.io/fourkites/jobs/7926771?utm_source=Simplify&ref=Simplify,FourKites,1d,"Chicago, IL",Engineering Intern,SimplifyJobs/Summer2026-Internships,open
 https://jobs.ashbyhq.com/solink/a9faf14b-6e54-4127-89b6-795011a025ef/application?utm_source=Simplify&ref=Simplify,Solink,1d,"Ottawa, ON, Canada",Software Engineer Co-op,SimplifyJobs/Summer2026-Internships,open
@@ -21,6 +20,7 @@ https://ivytech.wd1.myworkdayjobs.com/ivy_tech_careers/job/Indianapolis-IN/Data-
 https://brambles.wd5.myworkdayjobs.com/en-US/Brambles_Careers/job/London-England-United-Kingdom/FP-A-Business-Intelligence-Intern_JR23946-1?utm_source=Simplify&ref=Simplify,CHEP,1d,"London, UKOrlando, FLAtlanta, GA",FP&A Business Intelligence Intern,SimplifyJobs/Summer2026-Internships,open
 https://fa-ewjt-saasfaprod1.fa.ocs.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_2/job/15243?utm_source=Simplify&ref=Simplify,EXL,1d,United States,Analytics & AI Solutions Intern,SimplifyJobs/Summer2026-Internships,open
 https://jobs.ashbyhq.com/base-power/fbb553e1-5fb8-49a1-b5a5-9c7dde6b4406/application?utm_source=Simplify&ref=Simplify,Base Power,1d,"Austin, TX",Hardware Reliability & Test Engineer Intern,SimplifyJobs/Summer2026-Internships,open
+,NVIDIA,1d,"US, CA, Santa Clara",Software Engineering Intern - Mapping Autonomous Vehicles - Fall 2026,speedyapply/2026-SWE-College-Jobs,open
 https://jobs.bytedance.com/en/position/7595707875767699765/detail?utm_source=Simplify&ref=Simplify,🔥 ByteDance,2d,"San Jose, CA",Software Engineer Intern - Developer Infrastructure,SimplifyJobs/Summer2026-Internships,open
 https://usnh.wd5.myworkdayjobs.com/Careers/job/University-of-New-Hampshire--Main-Campus/High-Tech-Bound-Broadband-Intern_JR8298?utm_source=Simplify&ref=Simplify,University System of New Hampshire,2d,"Dover, NH",Broadband Intern,SimplifyJobs/Summer2026-Internships,open
 https://cibc.wd3.myworkdayjobs.com/campus/job/Toronto-ON/Digital-Product-Analyst-Co-op_2612126?utm_source=Simplify&ref=Simplify,CIBC,2d,"Toronto, ON, Canada",Digital Product Analyst Co-op,SimplifyJobs/Summer2026-Internships,open
@@ -48,7 +48,7 @@ https://careers-here.icims.com/jobs/81589/job?mobile=true&needsRedirect=false&ut
 https://jobs.lever.co/sunwatercapital/7681fd31-8d0b-405c-b0e0-7f8c1c87f3c8/apply?utm_source=Simplify&ref=Simplify,Sunwater Capital,3d,"North Bethesda, MD",Data Engineer Intern - Congressional Data,SimplifyJobs/Summer2026-Internships,open
 https://ciena.wd5.myworkdayjobs.com/Careers/job/Ottawa/Embedded-Software-Engineer---Intern_R031146?utm_source=Simplify&ref=Simplify,Ciena,3d,"Ottawa, ON, Canada",Embedded Software Engineer Intern,SimplifyJobs/Summer2026-Internships,open
 https://nwis.wd12.myworkdayjobs.com/NW/job/Annapolis-Junction-MD/Software---Hardware-Engineering---Intern_JR101733?utm_source=Simplify&ref=Simplify,Nightwing Intelligence Solutions,3d,"Annapolis Junction, MD",Software / Hardware Engineering Intern,SimplifyJobs/Summer2026-Internships,open
-,NVIDIA,3d,"US, CA, Santa Clara",DGX Cloud Kubernetes Runtime Intern - Fall 2026,speedyapply/2026-SWE-College-Jobs,open
+,Rivian,3d,"Vancouver, British Columbia",Software Engineer Intern - Android Connectivity - Fall/Spring Co-op,speedyapply/2026-SWE-College-Jobs,open
 https://jobs.bytedance.com/en/position/7537152240618195208/detail?utm_source=Simplify&ref=Simplify,🔥 ByteDance,4d,"San Jose, CA",Software Development Engineer Intern - Network Automation,SimplifyJobs/Summer2026-Internships,open
 https://jobs.bytedance.com/en/position/7642450978503641397/detail?utm_source=Simplify&ref=Simplify,🔥 ByteDance,4d,"San Jose, CA",Payment Partnership Project Intern - Global Payment,SimplifyJobs/Summer2026-Internships,open
 https://job-boards.greenhouse.io/queracomputinginc/jobs/5239489008?utm_source=Simplify&ref=Simplify,QuEra Computing,4d,"Boston, MA",Photonics Data Engineer Intern - Data Management,SimplifyJobs/Summer2026-Internships,open
@@ -63,6 +63,7 @@ https://jobs.smartrecruiters.com/AbbVie/3743990013416236?utm_source=Simplify&ref
 https://www.psiquantum.com/apply?gh_jid=7761881003&utm_source=Simplify&ref=Simplify,PsiQuantum,4d,"Milpitas, CA",Optical Packaging and Characterization Engineer Intern,SimplifyJobs/Summer2026-Internships,open
 https://jobs.bytedance.com/en/position/7537164763424606482/detail?utm_source=Simplify&ref=Simplify,🔥 ByteDance,4d,"San Jose, CA",Research Intern - Virtual Network 🎓,SimplifyJobs/Summer2026-Internships,open
 https://jobs.lever.co/fluxergy-2/c592763e-56ba-4d20-b751-3a4574470eec/apply?utm_source=Simplify&ref=Simplify,Fluxergy,4d,"Irvine, CA",Firmware Engineer Intern,SimplifyJobs/Summer2026-Internships,open
+,NVIDIA,4d,"US, CA, Santa Clara",DGX Cloud Kubernetes Runtime Intern - Fall 2026,speedyapply/2026-SWE-College-Jobs,open
 https://jobs.lever.co/genbio/4bdb14ae-e19f-40c8-84db-1307dbdabe74/apply?utm_source=Simplify&ref=Simplify,GenBio AI,5d,"Palo Alto, CA",Software Engineer Intern 🎓,SimplifyJobs/Summer2026-Internships,open
 https://careers-walterpmoore.icims.com/jobs/4125/job?mobile=true&needsRedirect=false&utm_source=Simplify&ref=Simplify,Walter P Moore,5d,"Austin, TX",Software Developer Intern,SimplifyJobs/Summer2026-Internships,open
 https://amat.wd1.myworkdayjobs.com/External/job/Santa-ClaraCA/Data-Scientist-Year-Round-Intern---BS-MS-degree--Santa-Clara--CA-_R2619446?utm_source=Simplify&ref=Simplify,Applied Materials,5d,"Santa Clara, CA",Data Scientist Intern,SimplifyJobs/Summer2026-Internships,open
@@ -81,8 +82,6 @@ https://agilent.wd5.myworkdayjobs.com/Agilent_Student_Careers/job/US-DE-Wilmingt
 https://boystown.wd1.myworkdayjobs.com/boystowncareers/job/Omaha-NE/Artificial-Intelligence---Machine-Learning-Intern_REQ-2026-8543-1?utm_source=Simplify&ref=Simplify,Boys Town,8d,"Omaha, NE",Artificial Intelligence & Machine Learning Intern,SimplifyJobs/Summer2026-Internships,open
 https://calibercollision.wd1.myworkdayjobs.com/protech/job/PT-Kansas-City/Automotive-ADAS-Calibration-Technician-Apprentice_R0214453?utm_source=Simplify&ref=Simplify,Protech Automotive Solutions,8d,"Kansas City, MO",Automotive ADAS Calibration Technician Apprentice,SimplifyJobs/Summer2026-Internships,open
 https://largo.wd1.myworkdayjobs.com/external/job/Largo-City-Hall/Intern---Undergraduate_R-2319?utm_source=Simplify&ref=Simplify,City of Largo,9d,"Largo, FL",Stormwater Intern - Wastewater Management,SimplifyJobs/Summer2026-Internships,open
-,NVIDIA,9d,"US, CA, Santa Clara",AI and Systems Software Intern - At Scale AI - Fall 2026,speedyapply/2026-SWE-College-Jobs,open
-,NVIDIA,9d,"US, CA, Santa Clara",Software Performance at Scale Intern - Fall 2026,speedyapply/2026-SWE-College-Jobs,open
 https://lifeattiktok.com/search/7534878965941766408?utm_source=Simplify&ref=Simplify,🔥 TikTok,10d,"San Jose, CA",Software Engineer Intern - Recommendation Infrastructure,SimplifyJobs/Summer2026-Internships,open
 https://lifeattiktok.com/search/7644719084681234741?utm_source=Simplify&ref=Simplify,🔥 TikTok,10d,"Seattle, WA",Data Science Intern - Tiktok Shop-Supply Chain & Logistics,SimplifyJobs/Summer2026-Internships,open
 https://nvidia.wd5.myworkdayjobs.com/NVIDIAExternalCareerSite/job/US-CA-Santa-Clara/PhD-Research-Intern--Generative-AI---2026_JR2016035?utm_source=Simplify&ref=Simplify,🔥 NVIDIA,10d,"CaliforniaSanta Clara, CAUnited States",PhD Research Intern - Generative AI 🎓,SimplifyJobs/Summer2026-Internships,open
@@ -92,6 +91,8 @@ https://jobs.lever.co/voltus/d30b5349-1023-497f-a5e5-264204071235/apply?utm_sour
 https://assaabloy.jobs2web.com/job/New-Haven-IT-Intern-Security-Analytics-&-Data-Management-CT-06511/1397886133/?ats=successfactors&utm_source=Simplify&ref=Simplify,ASSA ABLOY,10d,"New Haven, CT",IT Intern – Security Analytics & Data Management,SimplifyJobs/Summer2026-Internships,open
 https://sarepta.wd5.myworkdayjobs.com/en-US/sarepta_external/job/Cambridge-MA/Commercial-Operations-Co-op_R-03211?utm_source=Simplify&ref=Simplify,Sarepta,10d,"Cambridge, MA",Commercial Operations Co-op,SimplifyJobs/Summer2026-Internships,open
 https://intel.wd1.myworkdayjobs.com/en-us/external/job/US-Arizona-Phoenix/Silicon-Performance-Validation-and-Characterization-Intern_JR0284310?utm_source=Simplify&ref=Simplify,🔥 Intel,10d,"Phoenix, AZ",Silicon Performance Validation and Characterization Intern,SimplifyJobs/Summer2026-Internships,open
+,NVIDIA,10d,"US, CA, Santa Clara",Software Performance at Scale Intern - Fall 2026,speedyapply/2026-SWE-College-Jobs,open
+,NVIDIA,10d,"US, CA, Santa Clara",AI and Systems Software Intern - At Scale AI - Fall 2026,speedyapply/2026-SWE-College-Jobs,open
 https://jobs.ashbyhq.com/meshy/2f33b2eb-b76d-4618-b299-497471f263b9?utm_source=Simplify&ref=Simplify,Meshy,11d,"San Francisco, CA",Data Infra Engineer Intern,SimplifyJobs/Summer2026-Internships,open
 https://jobs.ashbyhq.com/base-power/5353ea33-57d4-46fa-9a96-e392a3f841bc/application?utm_source=Simplify&ref=Simplify,Base Power,11d,"Austin, TX",Software Engineer Intern,SimplifyJobs/Summer2026-Internships,open
 https://jobs.lever.co/plus-2/1864b1be-25e5-424f-9626-09e58f6147f2/apply?utm_source=Simplify&ref=Simplify,PlusAI,11d,"Santa Clara, CA",Systems Engineer Intern 🎓,SimplifyJobs/Summer2026-Internships,open
@@ -117,8 +118,7 @@ https://apply.workable.com/quadric-dot-i-o-inc/j/6BEF4752B5/apply?utm_source=Sim
 https://jobs.lever.co/sunsrce/8070e6a5-d767-463d-8268-c18a39b4192b/apply?utm_source=Simplify&ref=Simplify,SunSource,15d,"Batavia, IL",Electronics Intern - Electronic Drives - PC Boards,SimplifyJobs/Summer2026-Internships,open
 https://jobs.lever.co/plus-2/a3bcdba6-b0d0-46ba-9af3-a387926a6fb4/apply?utm_source=Simplify&ref=Simplify,PlusAI,15d,"Santa Clara, CA",Software Engineer Intern-Runtime - Robotics,SimplifyJobs/Summer2026-Internships,open
 https://cadence.wd1.myworkdayjobs.com/Univ_Careers/job/Burlington-MA/Product-Engineering-Internship--Simulation-and-Verification--Summer-2026-_R53475?utm_source=Simplify&ref=Simplify,Cadence Design Systems,15d,"Burlington, MA",Product Engineering Intern - Simulation and Verification 🎓,SimplifyJobs/Summer2026-Internships,open
-,Apple,15d,United States of America,Software Undergrad Engineering Internships,speedyapply/2026-SWE-College-Jobs,open
-,Apple,15d,United States of America,Software Engineering Masters Internships,speedyapply/2026-SWE-College-Jobs,open
+,Rivian,15d,"Vancouver, British Columbia",Software Engineering Intern - Systems Engineering - Fall/Spring Co-op,speedyapply/2026-SWE-College-Jobs,open
 https://jobs.apple.com/en-us/details/200664785?utm_source=Simplify&ref=Simplify,🔥 Apple,16d,United States,Software Undergrad Engineer Intern,SimplifyJobs/Summer2026-Internships,open
 https://jobs.jobvite.com/legalzoom/job/oRCaAfwX?nl=1&nl=1&fr=false&utm_source=Simplify&ref=Simplify,LegalZoom,16d,"LAMountain View, CA",AI Enablement Engineer Intern,SimplifyJobs/Summer2026-Internships,open
 https://jobs.ashbyhq.com/greatquestion/c533196c-75d5-43b8-b1c8-dedf2437d544/application?utm_source=Simplify&ref=Simplify,Great Question,16d,SFRemote in USA,AI Engineer Intern,SimplifyJobs/Summer2026-Internships,open
@@ -145,6 +145,8 @@ https://jobs.ashbyhq.com/base-power/f22cee0e-55d9-42cd-806e-1c1fc7217770/applica
 "<a href=""https://job-boards.greenhouse.io/embed/job_app?for=aquaticcapitalmanagement&jr_id=6a06fd77152f493123c4b595&token=8489233002&utm_source=github-vansh-ouckah""><img src=""https://i.imgur.com/u1KNU8z.png"" width=""118"" alt=""Apply""></a>",Aquatic Capital,May 22,"Chicago, IL",Software Engineer Intern,vanshb03/Summer2026-Internships,open
 "<a href=""https://jobs.apple.com/en-us/details/200664785/software-undergrad-engineering-internships?utm_source=github-vansh-ouckah""><img src=""https://i.imgur.com/u1KNU8z.png"" width=""118"" alt=""Apply""></a>",Apple,May 22,United States,"Software Engineer Intern, Undergrad",vanshb03/Summer2026-Internships,open
 "<a href=""https://jobs.apple.com/en-us/details/200664320/software-engineering-masters-internships?utm_source=github-vansh-ouckah""><img src=""https://i.imgur.com/u1KNU8z.png"" width=""118"" alt=""Apply""></a>",,May 22,United States,"Software Engineering Intern, Masters",vanshb03/Summer2026-Internships,open
+,Apple,16d,United States of America,Software Engineering Masters Internships,speedyapply/2026-SWE-College-Jobs,open
+,Apple,16d,United States of America,Software Undergrad Engineering Internships,speedyapply/2026-SWE-College-Jobs,open
 https://eeho.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_45001/job/334325?utm_source=Simplify&ref=Simplify,🔥 Oracle,17d,"Seattle, WASanta Clara, CA",Software Engineer Intern,SimplifyJobs/Summer2026-Internships,open
 https://job-boards.greenhouse.io/brightai/jobs/6002012004?utm_source=Simplify&ref=Simplify,BrightAI,17d,"Palo Alto, CA",Computer Vision Intern,SimplifyJobs/Summer2026-Internships,open
 https://www.keystone.com/careers?gh_jid=7946441&utm_source=Simplify&ref=Simplify,Keystone AI,17d,"Boston, MA",AI and Workflow Analytics Intern 🎓,SimplifyJobs/Summer2026-Internships,open
@@ -223,15 +225,15 @@ https://apply.careers.microsoft.com/careers/job/1970393556864498?utm_source=Simp
 https://jobs-cesi.icims.com/jobs/10965/ai-intern/job?utm_source=Simplify&ref=Simplify,Cole Engineering Services,30d,"Hanover, MD",AI Intern 🇺🇸,SimplifyJobs/Summer2026-Internships,open
 https://job-boards.greenhouse.io/gelbergroup/jobs/4679858006?utm_source=Simplify&ref=Simplify,Gelber Group,30d,"Boston, MA",Trading Intern 🎓,SimplifyJobs/Summer2026-Internships,open
 https://jobs.lever.co/dodmg/cb7099eb-ec49-4846-a665-a50496a7ad66/apply?utm_source=Simplify&ref=Simplify,HRL Laboratories,30d,"Malibu, CA",Mechanical Assembly Integration and Test Intern,SimplifyJobs/Summer2026-Internships,open
-,Amazon,38d,"Seattle, Washington, USA",Front-End Engineer Fall Internship - 2026 - US,speedyapply/2026-SWE-College-Jobs,open
 🔒,Fiserv,Apr 29,"Alpharetta, GA",Application Development Intern 🛂,vanshb03/Summer2026-Internships,open
 🔒,,Apr 29,"Alpharetta, GA",Data Engineer Intern,vanshb03/Summer2026-Internships,open
+,Amazon,39d,"Seattle, Washington, USA",Front-End Engineer Fall Internship - 2026 - US,speedyapply/2026-SWE-College-Jobs,open
 "<a href=""https://jobs.ashbyhq.com/homebase/a7ab59c0-786e-4675-b684-2ed19b240fb2?utm_source=github-vansh-ouckah""><img src=""https://i.imgur.com/u1KNU8z.png"" width=""118"" alt=""Apply""></a>",Homebase,Apr 28,"Houston, TX</br>San Francisco, CA","Forward Deployed Engineering Intern, AI-Native",vanshb03/Summer2026-Internships,open
 🔒,KBR,Apr 28,"Beavercreek Township, OH",Reverse Engineer Intern 🇺🇸,vanshb03/Summer2026-Internships,open
 🔒,Horace Mann,Apr 28,"Springfield, IL",Software Engineer Intern,vanshb03/Summer2026-Internships,open
 🔒,,Apr 28,"Springfield, IL",Cybersecurity SOC Analyst Intern,vanshb03/Summer2026-Internships,open
 🔒,AssetMark,Apr 28,"Charlotte, NC",QA Engineering Intern 🛂,vanshb03/Summer2026-Internships,open
-,NVIDIA,42d,"US, CA, Santa Clara",Software Engineering Intern - JAX - Fall 2026,speedyapply/2026-SWE-College-Jobs,open
+,NVIDIA,43d,"US, CA, Santa Clara",Software Engineering Intern - JAX - Fall 2026,speedyapply/2026-SWE-College-Jobs,open
 "<a href=""https://lifeattiktok.com/search/7631599293708126517?utm_source=github-vansh-ouckah""><img src=""https://i.imgur.com/u1KNU8z.png"" width=""118"" alt=""Apply""></a>",TikTok,Apr 24,"San Jose, CA","LLM Post-training Engineer Intern, Research & Product",vanshb03/Summer2026-Internships,open
 "<a href=""https://apply.workable.com/al-warren-oil-company-inc/j/A4487B349D/?utm_source=github-vansh-ouckah""><img src=""https://i.imgur.com/u1KNU8z.png"" width=""118"" alt=""Apply""></a>",Al Warren Oil Company,Apr 24,"Bensenville, IL",Software Developer Intern,vanshb03/Summer2026-Internships,open
 🔒,Twilio,Apr 24,Remote</br>United States,Software Engineer Intern,vanshb03/Summer2026-Internships,open
@@ -241,9 +243,9 @@ https://jobs.lever.co/dodmg/cb7099eb-ec49-4846-a665-a50496a7ad66/apply?utm_sourc
 🔒,Cadence,Apr 24,"San Jose, CA","Software Engineer Intern, Circuit Simulation Infrastructure",vanshb03/Summer2026-Internships,open
 🔒,,Apr 24,"San Jose, CA",Software Engineering Intern,vanshb03/Summer2026-Internships,open
 🔒,AssetMark,Apr 24,"Austin, TX",Software Engineering Intern 🛂,vanshb03/Summer2026-Internships,open
-,Amazon,45d,"Seattle, Washington, USA",Software Development Engineer Intern - AWS Data Services - Fall 2026 - US,speedyapply/2026-SWE-College-Jobs,open
 "<a href=""https://career41.sapsf.com/career?career_ns=job_listing&company=hcollp&career_job_req_id=3507&utm_source=github-vansh-ouckah""><img src=""https://i.imgur.com/u1KNU8z.png"" width=""118"" alt=""Apply""></a>",H&CO,Apr 22,"Coral Gables, FL",Software Development Intern,vanshb03/Summer2026-Internships,open
 🔒,SK Hynix Memory Solution,Apr 22,"San Jose, CA",Product Application Engineer Intern,vanshb03/Summer2026-Internships,open
+,Amazon,46d,"Seattle, Washington, USA",Software Development Engineer Intern - AWS Data Services - Fall 2026 - US,speedyapply/2026-SWE-College-Jobs,open
 "<a href=""https://tetramem.hrmdirect.com/employment/job-opening.php?req=3491042#job&utm_source=github-vansh-ouckah""><img src=""https://i.imgur.com/u1KNU8z.png"" width=""118"" alt=""Apply""></a>",TETRAMEM,Apr 20,"San Jose, CA","Software Engineer Intern, Embedded",vanshb03/Summer2026-Internships,open
 "<a href=""https://careers.skyworksinc.com/job/Irvine-Analog-IC-Design-SummerFall-Co-Op-(June-&apos;26-Dec-&apos;26)-CA-92602/76295-en_US/?feedId=177100&utm_source=github-vansh-ouckah""><img src=""https://i.imgur.com/u1KNU8z.png"" width=""118"" alt=""Apply""></a>",Skyworks,Apr 20,"Irvine, CA",Analog IC Design Co-op,vanshb03/Summer2026-Internships,open
 "<a href=""https://jobs.ashbyhq.com/poshmark/062b84e6-1633-43ae-870b-83cb62893caa?utm_source=github-vansh-ouckah""><img src=""https://i.imgur.com/u1KNU8z.png"" width=""118"" alt=""Apply""></a>",Poshmark,Apr 20,"Redwood City, CA","Cloud Platform Engineer Intern, Growth 🛂",vanshb03/Summer2026-Internships,open
@@ -258,7 +260,7 @@ https://jobs.lever.co/dodmg/cb7099eb-ec49-4846-a665-a50496a7ad66/apply?utm_sourc
 "<a href=""https://careers.point72.com/CSJobDetail?jobName=summer-2027-quantitative-developer-internship&jobCode=CSS-0012293&utm_source=github-vansh-ouckah""><img src=""https://i.imgur.com/u1KNU8z.png"" width=""118"" alt=""Apply""></a>",,Apr 19,"New York, NY",Quantitative Developer Intern,vanshb03/Summer2026-Internships,open
 🔒,Northspyre,Apr 19,"Atlanta, GA",AI Engineer Intern,vanshb03/Summer2026-Internships,open
 🔒,ABC Fitness,Apr 19,"Frisco, TX",Software Engineer Intern 🛂,vanshb03/Summer2026-Internships,open
-,Amazon,58d,"Vancouver, British Columbia, CAN",Software Development Engineer Internship - Fall 2026 - Canada,speedyapply/2026-SWE-College-Jobs,open
+,Amazon,59d,"Vancouver, British Columbia, CAN",Software Development Engineer Internship - Fall 2026 - Canada,speedyapply/2026-SWE-College-Jobs,open
 40,↳,03/27/2025,"New York, NY",Data Science Intern,arunike/Summer-2025-Internship-List,Open✅
 19 - 65,↳,03/27/2025,"Santa Clara, CA","Software Engineer Intern, Machine Learning Infrastructure & Data",arunike/Summer-2025-Internship-List,Open✅
 19 - 65,↳,03/27/2025,"Santa Clara, CA","Software Engineer Intern, ML Simulation",arunike/Summer-2025-Internship-List,Open✅
